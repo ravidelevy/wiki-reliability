@@ -6,9 +6,8 @@ def get_wikipedia_page(page_id, revision_id):
         "action": "query",
         "format": "json",
         "prop": "revisions",
-        "pageids": page_id,
-        #"revids": revision_id,
-        "rvprop": "content",
+        "revids": revision_id,
+        "rvprop": "content"
     }
 
     response = requests.get(url, params=params)
