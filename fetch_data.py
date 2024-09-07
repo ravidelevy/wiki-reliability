@@ -1,4 +1,5 @@
 import requests
+import wikitextparser
 
 def get_wikipedia_page(page_id, revision_id):
     url = "https://en.wikipedia.org/w/api.php"
@@ -24,4 +25,4 @@ def get_wikipedia_page(page_id, revision_id):
 page_id = 1397  # Example page ID
 revision_id = 230137091  # Example revision ID
 content = get_wikipedia_page(page_id, revision_id)
-print(content)
+print(wikitextparser.parse(content).plain_text().split("== See also ==")[0].lower())
