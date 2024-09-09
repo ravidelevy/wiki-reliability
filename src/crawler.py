@@ -21,7 +21,11 @@ def crawl(directory, number_of_records=1):
             page_id = row["page_id"]
             revision_id = row["revision_id"]
             has_template = row["has_template"]
-            title, content = get_wikipedia_page(page_id, revision_id)
+            page = get_wikipedia_page(page_id, revision_id)
+            if len(page) != 2:
+                continue
+            
+            title, content = page
             pages[dataset].append({
                 "page_id": page_id,
                 "revision_id": revision_id,
