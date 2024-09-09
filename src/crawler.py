@@ -12,12 +12,12 @@ def create_dataframes(directory):
     return dataframes
 
 
-def crawl(directory):
+def crawl(directory, number_of_records=1):
     dataframes = create_dataframes(directory)
     pages = {}
     for dataset in dataframes.keys():
         pages[dataset] = []
-        for _, row in dataframes[dataset][:1].iterrows():
+        for _, row in dataframes[dataset][:number_of_records].iterrows():
             page_id = row["page_id"]
             revision_id = row["revision_id"]
             has_template = row["has_template"]
