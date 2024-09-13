@@ -1,8 +1,9 @@
+import asyncio
 from crawler import crawl, save
 
-
-def main():
-    save(crawl("data", number_of_records=500), "pages")
+async def main():
+    data = await crawl("data", number_of_records=1350)
+    save(data, "pages")
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
