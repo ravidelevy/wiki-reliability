@@ -30,10 +30,11 @@ def unify_idf(original_data_dir, pages_dir, tfidf_dir, unified_idf_dir):
 
 def main():
     #unify_idf("data", "pages", "tfidf", "idf_unified")
-    wiki_with_idf = create_dataframes("idf_unified")
-    results = xgboost_classify(wiki_with_idf)
-    print(sum([results[dataset] * len(wiki_with_idf[dataset]) for dataset in wiki_with_idf.keys()]) / 
-          sum([len(wiki_with_idf[dataset]) for dataset in wiki_with_idf.keys()]))
+    # wiki_with_idf = create_dataframes("idf_unified")
+    wiki_original = create_dataframes("data")
+    results = xgboost_classify(wiki_original)
+    print(sum([results[dataset] * len(wiki_original[dataset]) for dataset in wiki_original.keys()]) / 
+          sum([len(wiki_original[dataset]) for dataset in wiki_original.keys()]))
     print(results)
 
 if __name__ == '__main__':
