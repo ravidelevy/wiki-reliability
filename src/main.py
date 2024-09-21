@@ -29,7 +29,12 @@ def unify_idf(original_data_dir, pages_dir, tfidf_dir, unified_idf_dir):
     save_dataframes(unified_datasets, unified_idf_dir)
 
 def main():
-    unify_idf("data", "pages", "tfidf", "idf_unified")
+    #unify_idf("data", "pages", "tfidf", "idf_unified")
+    wiki_with_idf = create_dataframes("idf_unified")
+    results = xgboost_classify(wiki_with_idf)
+    print(sum([results[dataset] * len(wiki_with_idf[dataset]) for dataset in wiki_with_idf.keys()]) / 
+          sum([len(wiki_with_idf[dataset]) for dataset in wiki_with_idf.keys()]))
+    print(results)
 
 if __name__ == '__main__':
     # asyncio.run(main())

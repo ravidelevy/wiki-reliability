@@ -10,7 +10,7 @@ from pathlib import Path
 def create_dataframes(directory):
     dataframes = {}
     for filename in os.listdir(directory):
-        dataframes[filename.split("_")[0]] = pd.read_csv(f"{directory}/{filename}")
+        dataframes[filename.split("_")[0].split(".")[0]] = pd.read_csv(f"{directory}/{filename}")
     
     return dataframes
 
