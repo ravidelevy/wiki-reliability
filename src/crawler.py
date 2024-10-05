@@ -5,13 +5,18 @@ import json
 import random
 import asyncio
 import pandas as pd
+from pathlib import Path
 
 def create_dataframes(directory):
     dataframes = {}
     for filename in os.listdir(directory):
-        dataframes[filename.split("_")[0]] = pd.read_csv(f"{directory}/{filename}")
+        dataframes[filename.split("_")[0].split(".")[0]] = pd.read_csv(f"{directory}/{filename}")
     
     return dataframes
+
+def save_dataframes(dataframes, directory):
+    for dataframe in dataframes.keys():
+        dataframes[dataframe].drop('Unnamed: 0', axis=1).to_csv(f"{directory}/{dataframe}.csv")
 
 async def process_row(pages, index, row):
     page_id = row["page_id"]
@@ -57,7 +62,17 @@ async def crawl(directory, number_of_records=1):
     
     return pages
 
-def save(pages, directory):
+def save_jsons(pages, directory):
     for page in pages.keys():
         with open(f"{directory}/{page}.json", "w") as file:
             file.write(json.dumps(pages[page]))
+
+def load_jsons(directory):
+    path = Path(directory)
+    pages = {}
+    for filename in path.iterdir():
+        dataset = str(filename).split(".")[0].split("\\")[1]
+        with open(filename, "r") as file:
+            pages[dataset] = json.load(file)
+    
+    return pages

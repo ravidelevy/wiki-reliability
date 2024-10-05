@@ -4,8 +4,7 @@ from sklearn.model_selection import train_test_split
 from crawler import create_dataframes
 
 
-def xgboost_classify(directory):
-   dataframes = create_dataframes(directory)
+def xgboost_classify(dataframes):
    results = {}
 
    for dataframe in dataframes.keys():
