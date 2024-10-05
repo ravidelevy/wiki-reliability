@@ -1,9 +1,9 @@
 import asyncio
 import pandas as pd
 
-from tfidf import get_features, lookup, unify_record
-from crawler import crawl, create_dataframes, load_jsons, save_dataframes, save_jsons
-from xgboost_classify import xgboost_classify
+from src.tfidf import get_features, lookup, unify_record
+from src.crawler import crawl, create_dataframes, load_jsons, save_dataframes, save_jsons
+from src.xgboost_classify import xgboost_classify
 
 # async def main():
     # data = await crawl("data", number_of_records=1350)
