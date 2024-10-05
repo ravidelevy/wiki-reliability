@@ -50,14 +50,28 @@ def unify_pagerank(original_data_dir, pages_dir, pagerank_dir, unified_pagerank_
 
 def main():
     # unify_idf("data", "pages", "tfidf", "tfidf_unified")
-    unify_pagerank("data", "pages", "pagerank", "pagerank_unified")
-    # wiki_with_idf = create_dataframes("tfidf_unified")
-    # wiki_with_pagerank = create_dataframes("pagerank_unified")
-    # wiki_original = create_dataframes("data")
-    # results = xgboost_classify(wiki_original)
-    # print(sum([results[dataset] * len(wiki_original[dataset]) for dataset in wiki_original.keys()]) / 
-    #       sum([len(wiki_original[dataset]) for dataset in wiki_original.keys()]))
-    # print(results)
+    # unify_pagerank("data", "pages", "pagerank", "pagerank_unified")
+    wiki_with_idf = create_dataframes("tfidf_unified")
+    wiki_with_pagerank = create_dataframes("pagerank_unified")
+    wiki_original = create_dataframes("data")
+
+    results = xgboost_classify(wiki_original)
+    print("Original:")
+    print(sum([results[dataset] * len(wiki_original[dataset]) for dataset in wiki_original.keys()]) / 
+          sum([len(wiki_original[dataset]) for dataset in wiki_original.keys()]))
+    print(results)
+
+    print("TFIDF:")
+    results = xgboost_classify(wiki_with_idf)
+    print(sum([results[dataset] * len(wiki_with_idf[dataset]) for dataset in wiki_with_idf.keys()]) / 
+          sum([len(wiki_with_idf[dataset]) for dataset in wiki_with_idf.keys()]))
+    print(results)
+
+    print("PageRank:")
+    results = xgboost_classify(wiki_with_pagerank)
+    print(sum([results[dataset] * len(wiki_with_pagerank[dataset]) for dataset in wiki_with_pagerank.keys()]) / 
+          sum([len(wiki_with_pagerank[dataset]) for dataset in wiki_with_pagerank.keys()]))
+    print(results)
 
 if __name__ == '__main__':
     # asyncio.run(main())
