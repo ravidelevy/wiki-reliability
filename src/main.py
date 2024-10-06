@@ -56,7 +56,9 @@ def main():
     wiki_original = create_dataframes("data")
 
     original_results = xgboost_classify(wiki_original)
+    original_results_idf_dataset = xgboost_classify(wiki_with_idf, drop_idf=True)
     idf_results = xgboost_classify(wiki_with_idf)
+    original_results_pagerank_dataset = xgboost_classify(wiki_with_pagerank, drop_pagerank=True)
     pagerank_results = xgboost_classify(wiki_with_pagerank)
 
     print("Original:")
@@ -64,10 +66,20 @@ def main():
           sum([len(wiki_original[dataset]) for dataset in wiki_original.keys()]))
     print(original_results)
 
+    print("Original TFIDF Dataset without IDF field:")
+    print(sum([original_results_idf_dataset[dataset] * len(wiki_with_idf[dataset]) for dataset in wiki_with_idf.keys()]) / 
+          sum([len(wiki_with_idf[dataset]) for dataset in wiki_with_idf.keys()]))
+    print(original_results_idf_dataset)
+
     print("TFIDF:")
     print(sum([idf_results[dataset] * len(wiki_with_idf[dataset]) for dataset in wiki_with_idf.keys()]) / 
           sum([len(wiki_with_idf[dataset]) for dataset in wiki_with_idf.keys()]))
     print(idf_results)
+
+    print("Original PageRank Dataset without rank field:")
+    print(sum([original_results_pagerank_dataset[dataset] * len(wiki_with_pagerank[dataset]) for dataset in wiki_with_pagerank.keys()]) / 
+          sum([len(wiki_with_pagerank[dataset]) for dataset in wiki_with_pagerank.keys()]))
+    print(original_results_pagerank_dataset)
 
     print("PageRank:")
     print(sum([pagerank_results[dataset] * len(wiki_with_pagerank[dataset]) for dataset in wiki_with_pagerank.keys()]) / 
