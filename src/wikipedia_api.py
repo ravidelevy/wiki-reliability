@@ -2,6 +2,17 @@ import wikitextparser
 import aiohttp
 
 async def get_wikipedia_page(page_id, revision_id):
+    """
+    Fetches the title and content of a Wikipedia page given its page_id and revision_id using the Wikipedia API.
+
+    Params:
+    page_id (int): The ID of the Wikipedia page to be retrieved.
+    revision_id (int): The ID of the specific revision of the page.
+
+    Returns:
+    A tuple containing the title and cleaned content of the Wikipedia page.
+    If the page or revision is not found, returns an error message instead.
+    """
     url = "https://en.wikipedia.org/w/api.php"
     params = {
         "action": "query",
